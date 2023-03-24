@@ -68,6 +68,27 @@ function Question() {
             </div>
           ) : null;
         })}
+      {questions &&
+        questions.map((question, index) => {
+          return activeQuestion === index &&
+            activeQuestion < questions.length - 1 ? (
+            <button
+              onClick={() => {
+                setActiveQuestion(activeQuestion + 1);
+              }}
+            >
+              Next
+            </button>
+          ) : activeQuestion === index ? (
+            <button
+              onClick={() => {
+                setActiveQuestion(activeQuestion + 1);
+              }}
+            >
+              Finish
+            </button>
+          ) : null;
+        })}
     </div>
   );
 }
