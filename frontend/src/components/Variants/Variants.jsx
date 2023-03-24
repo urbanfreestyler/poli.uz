@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import "./Variants.css";
+import { getVariants } from "../queries";
 
 function Variants() {
   const api_url = "http://127.0.0.1:4000/";
@@ -10,19 +11,11 @@ function Variants() {
   const [error, setError] = useState(null);
 
   useEffect(() => {
-    const getData = async () => {
-      try {
-        const response = await axios.get(api_url + "api/variants/");
-        setData(response.data);
-        setError(null);
-      } catch (err) {
-        setError(err.message);
-        setData(null);
-      } finally {
-        setLoading(false);
-      }
+    const variantsList = async () => {
+      const variants = await getVariants();
+      setData(variants);
     };
-    getData();
+    variantsList();
   }, []);
 
   const startQuiz = (variant) => {
@@ -37,7 +30,7 @@ function Variants() {
         {data &&
           data.map(({ id, variant }) => {
             return (
-              <a key={id} href={"/quiz/" + id} className="variants-link">
+              <a key={id} href={"/quiz/" + variant} className="variants-link">
                 {variant}
               </a>
             );

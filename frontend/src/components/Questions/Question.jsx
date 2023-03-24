@@ -1,40 +1,40 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router";
 import axios from "axios";
+import { getQuestions, getAnswers } from "../queries";
 
 function Question() {
-  const { id } = useParams();
-  console.log(id);
-  const api_url = "http://127.0.0.1:4000/";
+  const { quiz_id } = useParams();
 
-  const [data, setData] = useState(null);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
+  const [questions, setQuestions] = useState(null);
+  const [answers, setAnswers] = useState(null);
 
   useEffect(() => {
-    const getData = async () => {
-      try {
-        const response = await axios.get(api_url + "api/questions/");
-        setData(response.data);
-        console.log(response.data);
-        setError(null);
-      } catch (err) {
-        setError(err.message);
-        setData(null);
-      } finally {
-        setLoading(false);
-      }
+    const questionList = async (pk) => {
+      const questions = await getQuestions(pk);
+      setQuestions(questions);
     };
-    getData();
+
+    const answersList = async (pk) => {
+      const answers = await getAnswers(pk);
+      setAnswers(answers);
+    };
+
+    questionList(quiz_id);
+    answersList(quiz_id);
   }, []);
   return (
     <div>
-      {data &&
-        data.map(({ id, text, answers }) => {
+      {questions &&
+        questions.map(({ id, text, variant }) => {
+          return <div key={id}>{text}</div>;
+        })}
+
+      {answers &&
+        answers.map(({ id, text, question, is_correct }) => {
           return (
-            <div>
-              {text}
-              {answers}
+            <div key={id}>
+              Question: {question}, answer: {text} {is_correct}
             </div>
           );
         })}

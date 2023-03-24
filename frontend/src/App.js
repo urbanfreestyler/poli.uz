@@ -11,7 +11,7 @@ function App() {
     <BrowserRouter>
       <Routes>
         <Route exact path="/" element={<Variants />} />
-        <Route path="/quiz/:id" element={<Question />} />
+        <Route path="/quiz/:quiz_id" element={<Question />} />
         <Route path="/result/" element={<Result />} />
       </Routes>
     </BrowserRouter>

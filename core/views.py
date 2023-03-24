@@ -15,7 +15,7 @@ def variants_list(request):
 
         variants_ids = request.query_params.get('id', None)
         if variants_ids is not None:
-            variants_ids = variants_ids.filter(model_objs_id_icontains=variants_ids)
+            variants_ids = variants_ids.filter(variant_id_icontains=variants_ids)
 
         serializer = VariantSerializer(variants, many=True)
         return JsonResponse(serializer.data, safe=False)
@@ -40,7 +40,7 @@ def questions_list(request):
 
         questions_ids = request.query_params.get('id', None)
         if questions_ids is not None:
-            questions_ids = questions_ids.filter(model_objs_id_icontains=questions_ids)
+            questions_ids = questions_ids.filter(question_id_icontains=questions_ids)
 
         serializer = QuestionSerializer(questions, many=True)
         return JsonResponse(serializer.data, safe=False)
@@ -56,3 +56,29 @@ def question_detail(request, pk):
     if request.method == 'GET':
         serializer = QuestionSerializer(question)
         return JsonResponse(serializer.data)
+    
+
+
+@api_view(['GET'])
+def get_quiz_questions(request, pk):
+    try:
+        questions = Question.objects.filter(variant__variant=pk)
+        print(questions)
+    except Variant.DoesNotExist:
+        return JsonResponse({'message': 'This variant does not exist'}, status=status.HTTP_404_NOT_FOUND)
+    if request.method == 'GET':
+        serializer = QuestionSerializer(questions, many=True)
+        return JsonResponse(serializer.data, safe=False)
+
+
+@api_view(['GET'])
+def answers_list(request, pk):
+    if request.method == 'GET':
+        answers = Answer.objects.filter(question__variant__variant=pk)
+
+        answers_ids = request.query_params.get('id', None)
+        if answers_ids is not None:
+            answers_ids = answers_ids.filter(answers_id_icontains=answers_ids)
+
+        serializer = AnswerSerializer(answers, many=True)
+        return JsonResponse(serializer.data, safe=False)

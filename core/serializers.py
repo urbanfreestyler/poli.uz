@@ -5,15 +5,17 @@ from .models import *
 
 
 class VariantSerializer(serializers.ModelSerializer):
+    question_set = serializers.RelatedField(source="question.text", read_only=True)
     class Meta:
         model = Variant
-        fields = '__all__'
+        fields = ['id', 'variant', 'question_set']
 
 
 class QuestionSerializer(serializers.ModelSerializer):
+    answers = serializers.RelatedField(source='answer.text', read_only=True)
     class Meta:
         model = Question
-        fields = '__all__'
+        fields = ['id', 'text', 'variant', 'answers']
 
 
 class AnswerSerializer(serializers.ModelSerializer):

@@ -8,7 +8,7 @@ class Variant(models.Model):
         return self.variant
 
     def get_questions(self):
-        return self.questions.all()
+        return self.question_set.all()
 
 
 class Question(models.Model):
