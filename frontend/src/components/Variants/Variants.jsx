@@ -1,11 +1,8 @@
 import React, { useEffect, useState } from "react";
-import axios from "axios";
 import "./Variants.css";
 import { getVariants } from "../queries";
 
 function Variants() {
-  const api_url = "http://127.0.0.1:4000/";
-
   const [data, setData] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -17,10 +14,6 @@ function Variants() {
     };
     variantsList();
   }, []);
-
-  const startQuiz = (variant) => {
-    console.log(variant);
-  };
 
   return (
     <div className="wrapper">

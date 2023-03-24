@@ -1,6 +1,6 @@
 import "./App.css";
 import Variants from "./components/Variants/Variants";
-import Question from "./components/Questions/Question";
+import Question from "./components/Questions/Questions";
 
 import ReactDOM from "react-dom/client";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
