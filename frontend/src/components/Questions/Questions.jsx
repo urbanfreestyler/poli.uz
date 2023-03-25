@@ -1,10 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router";
-import axios from "axios";
 import { getQuestions, getAnswers } from "../queries";
-
-import { Tab, Tabs, TabList, TabPanel } from "react-tabs";
-import "react-tabs/style/react-tabs.css";
 
 function Question() {
   const { quiz_id } = useParams();
@@ -13,6 +9,32 @@ function Question() {
   const [answers, setAnswers] = useState(null);
 
   const [activeQuestion, setActiveQuestion] = useState(0);
+
+  const [correctAnswers, setCorrectAnswers] = useState({});
+  const [incorrectAnswers, setIncorrectAnswers] = useState({});
+
+  const handleAnswer = (answer) => {
+    if (answer.question in correctAnswers) {
+      delete correctAnswers[answer.question];
+    } else if (answer.question in incorrectAnswers) {
+      delete incorrectAnswers[answer.question];
+    } else {
+      answer.is_correct === true
+        ? (correctAnswers[answer.question] = true)
+        : (incorrectAnswers[answer.question] = true);
+    }
+
+    console.log(correctAnswers);
+    console.log(incorrectAnswers);
+  };
+
+  const showResults = () => {
+    const result = Math.floor(
+      1.5 * Object.keys(correctAnswers).length -
+        0.5 * Object.keys(incorrectAnswers).length
+    );
+    console.log(result);
+  };
 
   useEffect(() => {
     const questionList = async (pk) => {
@@ -27,7 +49,7 @@ function Question() {
 
     questionList(quiz_id);
     answersList(quiz_id);
-  }, []);
+  }, [quiz_id]);
 
   const changeQuestion = (index) => {
     setActiveQuestion(index);
@@ -59,15 +81,22 @@ function Question() {
             ) : null;
           })}
       </div>
-      {answers &&
-        answers.map((answer, index) => {
-          return activeQuestion === answer.question - 1 ? (
-            <div key={answer.id}>
-              Question: {answer.question}, answer: {answer.text}
-              {answer.is_correct}
-            </div>
-          ) : null;
-        })}
+      <ul>
+        {answers &&
+          answers.map((answer, index) => {
+            return activeQuestion === answer.question - 1 ? (
+              <li
+                style={{ padding: "15px" }}
+                key={answer.id}
+                onClick={() => {
+                  handleAnswer(answer);
+                }}
+              >
+                answer: {answer.text}
+              </li>
+            ) : null;
+          })}
+      </ul>
       {questions &&
         questions.map((question, index) => {
           return activeQuestion === index &&
@@ -82,7 +111,7 @@ function Question() {
           ) : activeQuestion === index ? (
             <button
               onClick={() => {
-                setActiveQuestion(activeQuestion + 1);
+                showResults();
               }}
             >
               Finish

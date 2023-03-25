@@ -31,7 +31,7 @@ class Answer(models.Model):
                                  related_name='answers')
 
     def __str__(self):
-        return f"Question: {self.question.text}, answer: {self.text}"
+        return self.text
 
 
 class Explanation(models.Model):
