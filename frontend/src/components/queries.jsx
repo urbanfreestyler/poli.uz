@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const api_url = "http://127.0.0.1:8000/";
+const api_url = "http://127.0.0.1:4000/";
 
 export const getVariants = async () => {
   try {

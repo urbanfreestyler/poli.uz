@@ -5,7 +5,7 @@ import "./Result.css";
 const Result = (props) => {
   const location = useLocation();
   const resultData = location.state;
-  const questions = resultData.questions;
+  const answers = resultData.answers;
   const correctAnswers = resultData.correctAnswers;
   const incorrectAnswers = resultData.incorrectAnswers;
 
@@ -35,6 +35,10 @@ const Result = (props) => {
         <div>YourResult</div>
         <Results />
       </div>
+      {answers &&
+        answers.map((question, index) => {
+          return <div>{answers.question.text}</div>;
+        })}
     </>
   );
 };
