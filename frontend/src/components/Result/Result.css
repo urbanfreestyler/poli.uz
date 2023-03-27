@@ -1,0 +1,10 @@
+.result__container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-top: 7vh;
+  justify-content: safe;
+
+  max-width: 920px;
+  margin: auto;
+}

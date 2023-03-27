@@ -1,0 +1,18 @@
+.navbar {
+  position: absolute;
+  background: dodgerblue;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  display: flex;
+  align-items: center;
+}
+
+.navbar a {
+  padding: 15px 0;
+  text-decoration: none;
+  font-size: min(5vw, 36px);
+  color: #fff;
+}
