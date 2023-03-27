@@ -5,7 +5,9 @@ from .models import *
 
 
 class VariantSerializer(serializers.ModelSerializer):
-    question_set = serializers.RelatedField(source="question.text", read_only=True)
+    question_set = serializers.RelatedField(
+        source="question.text", read_only=True)
+
     class Meta:
         model = Variant
         fields = ['id', 'variant', 'question_set']
@@ -13,6 +15,7 @@ class VariantSerializer(serializers.ModelSerializer):
 
 class QuestionSerializer(serializers.ModelSerializer):
     answers = serializers.RelatedField(source='answer.text', read_only=True)
+
     class Meta:
         model = Question
         fields = ['id', 'text', 'variant', 'answers']
