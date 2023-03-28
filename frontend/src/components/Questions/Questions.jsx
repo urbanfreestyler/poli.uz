@@ -33,34 +33,32 @@ const Question = () => {
     console.log(incorrectAnswers);
   };
 
+  const questionList = async (pk) => {
+    const questions = await getQuestions(pk);
+    setQuestions(questions);
+  };
+
+  // const activeQuestionDetector = () => {
+  //   if (questions != null) {
+  //     questions.map((index) => {
+  //       if (activeQuestion === index) {
+  //         document.body.classList.add("selected");
+  //         console.log(index);
+  //       }
+  //     });
+  //   }
+  // };
+
+  const answersList = async (pk) => {
+    const answers = await getAnswers(pk);
+    setAnswers(answers);
+  };
+
   useEffect(() => {
-    const questionList = async (pk) => {
-      const questions = await getQuestions(pk);
-      setQuestions(questions);
-    };
-
-    const activeQuestionDetector = () => {
-      if (questions != null) {
-        questions.map((index) => {
-          if (activeQuestion === index) {
-            document.body.classList.add("selected");
-            console.log(index);
-          }
-        });
-      }
-    };
-
-    const answersList = async (pk) => {
-      const answers = await getAnswers(pk);
-      setAnswers(answers);
-    };
-
-    if (questions == null) {
-      questionList(quiz_id);
-      answersList(quiz_id);
-    }
-    activeQuestionDetector();
-  }, [quiz_id, activeQuestion, questions]);
+    questionList(quiz_id);
+    answersList(quiz_id);
+    // activeQuestionDetector();
+  }, [quiz_id]);
 
   const changeQuestion = (index) => {
     setActiveQuestion(index);
