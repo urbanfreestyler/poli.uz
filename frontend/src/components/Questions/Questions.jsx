@@ -54,8 +54,11 @@ const Question = () => {
       const answers = await getAnswers(pk);
       setAnswers(answers);
     };
-    questionList(quiz_id);
-    answersList(quiz_id);
+
+    if (questions == null) {
+      questionList(quiz_id);
+      answersList(quiz_id);
+    }
     activeQuestionDetector();
   }, [quiz_id, activeQuestion, questions]);
 

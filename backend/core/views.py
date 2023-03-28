@@ -66,7 +66,6 @@ def question_detail(request, pk):
 def get_quiz_questions(request, pk):
     try:
         questions = Question.objects.filter(variant__variant=pk)
-        print(questions)
     except Variant.DoesNotExist:
         return JsonResponse(
             {'message': 'This variant does not exist'}, status=status.HTTP_404_NOT_FOUND)

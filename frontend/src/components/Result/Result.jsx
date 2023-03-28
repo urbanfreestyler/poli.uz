@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { useLocation } from "react-router-dom";
 import Navbar from "../Navbar/Navbar";
 import "./Result.css";
@@ -37,7 +37,7 @@ const Result = (props) => {
       </div>
       {answers &&
         answers.map((question, index) => {
-          return <div>{answers.question.text}</div>;
+          return <div>{answers.question}</div>;
         })}
     </>
   );
