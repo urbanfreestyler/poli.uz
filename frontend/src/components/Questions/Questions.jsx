@@ -1,3 +1,4 @@
+
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router";
 import { Link } from "react-router-dom";
@@ -18,16 +19,23 @@ const Question = () => {
   const [incorrectAnswers, setIncorrectAnswers] = useState({});
 
   const handleAnswer = (answer) => {
-    if (answer.is_correct) {
-      answer.id === correctAnswers[answer.question]
-        ? delete correctAnswers[answer.question]
-        : (correctAnswers[answer.question] = answer.id);
-      delete incorrectAnswers[answer.question];
+    const correct = answer.is_correct;
+    const question = answer.question;
+    const id = answer.id;
+    if (correct) {
+      if (id === correctAnswers[question]) {
+        delete correctAnswers[question];
+      } else {
+        correctAnswers[question] = id;
+      }
+      delete incorrectAnswers[question];
     } else {
-      answer.id === incorrectAnswers[answer.question]
-        ? delete incorrectAnswers[answer.question]
-        : (incorrectAnswers[answer.question] = answer.id);
-      delete correctAnswers[answer.question];
+      if (id === incorrectAnswers[question]) {
+        delete incorrectAnswers[question];
+      } else {
+        incorrectAnswers[question] = id;
+      }
+      delete correctAnswers[question];
     }
     console.log(correctAnswers);
     console.log(incorrectAnswers);
@@ -38,26 +46,17 @@ const Question = () => {
     setQuestions(questions);
   };
 
-  // const activeQuestionDetector = () => {
-  //   if (questions != null) {
-  //     questions.map((index) => {
-  //       if (activeQuestion === index) {
-  //         document.body.classList.add("selected");
-  //         console.log(index);
-  //       }
-  //     });
-  //   }
-  // };
-
   const answersList = async (pk) => {
     const answers = await getAnswers(pk);
     setAnswers(answers);
   };
 
   useEffect(() => {
-    questionList(quiz_id);
-    answersList(quiz_id);
-    // activeQuestionDetector();
+    const fetchData = async () => {
+      await questionList(quiz_id);
+      await answersList(quiz_id);
+    };
+    fetchData();
   }, [quiz_id]);
 
   const changeQuestion = (index) => {
@@ -65,9 +64,9 @@ const Question = () => {
   };
 
   const resultData = {
-    answers: answers,
-    correctAnswers: correctAnswers,
-    incorrectAnswers: incorrectAnswers,
+    answers,
+    correctAnswers,
+    incorrectAnswers,
   };
 
   return (

@@ -65,6 +65,11 @@ def question_detail(request, pk):
 @api_view(['GET'])
 def get_quiz_questions(request, pk):
     try:
+        pk = int(pk)
+    except ValueError:
+        return JsonResponse(
+            {'message': 'Invalid variant ID'}, status=status.HTTP_400_BAD_REQUEST)
+    try:
         questions = Question.objects.filter(variant__variant=pk)
     except Variant.DoesNotExist:
         return JsonResponse(
