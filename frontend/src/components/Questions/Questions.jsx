@@ -1,4 +1,3 @@
-
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router";
 import { Link } from "react-router-dom";
@@ -15,30 +14,15 @@ const Question = () => {
 
   const [activeQuestion, setActiveQuestion] = useState(0);
 
-  const [correctAnswers, setCorrectAnswers] = useState({});
-  const [incorrectAnswers, setIncorrectAnswers] = useState({});
+  const [selectedAnswers, setSelectedAnswers] = useState({});
 
   const handleAnswer = (answer) => {
-    const correct = answer.is_correct;
     const question = answer.question;
     const id = answer.id;
-    if (correct) {
-      if (id === correctAnswers[question]) {
-        delete correctAnswers[question];
-      } else {
-        correctAnswers[question] = id;
-      }
-      delete incorrectAnswers[question];
-    } else {
-      if (id === incorrectAnswers[question]) {
-        delete incorrectAnswers[question];
-      } else {
-        incorrectAnswers[question] = id;
-      }
-      delete correctAnswers[question];
-    }
-    console.log(correctAnswers);
-    console.log(incorrectAnswers);
+    id === selectedAnswers[question]
+      ? delete selectedAnswers[question]
+      : (selectedAnswers[question] = id);
+    console.log(selectedAnswers);
   };
 
   const questionList = async (pk) => {
@@ -64,37 +48,36 @@ const Question = () => {
   };
 
   const resultData = {
+    selectedAnswers,
+    questions,
     answers,
-    correctAnswers,
-    incorrectAnswers,
   };
 
   return (
     <>
-      <Navbar />
-
-      <div className="questions__wrapper">
-        <div className="questions__list">
-          <p>Questions</p>
-          <div className="questions__btns">
-            {questions &&
-              questions.map((question, index) => {
-                return (
-                  <button
-                    key={index + 1}
-                    className=""
-                    onClick={() => {
-                      changeQuestion(index);
-                    }}
-                  >
-                    {index + 1}
-                  </button>
-                );
-              })}
+      <div className="page_container">
+        <Navbar />
+        <div className="questions__wrapper">
+          <div className="questions__list">
+            <p>Questions</p>
+            <div className="questions__btns">
+              {questions &&
+                questions.map((question, index) => {
+                  return (
+                    <button
+                      key={index + 1}
+                      className=""
+                      onClick={() => {
+                        changeQuestion(index);
+                      }}
+                    >
+                      {index + 1}
+                    </button>
+                  );
+                })}
+            </div>
           </div>
-        </div>
-        <div className="questions__answer_wrapper">
-          <div className="container">
+          <div className="questions__answer_wrapper">
             <div className="questions__content">
               {questions &&
                 questions.map((question, index) => {
@@ -113,7 +96,11 @@ const Question = () => {
                     answers.map((answer, index) => {
                       return activeQuestion === answer.question - 1 ? (
                         <div
-                          className="list-group-item answer"
+                          className={
+                            answer.id === selectedAnswers[answer.question]
+                              ? "list-group-item answer selected"
+                              : "list-group-item answer"
+                          }
                           key={answer.id}
                           onClick={() => {
                             handleAnswer(answer);
@@ -129,7 +116,7 @@ const Question = () => {
                 questions.map((question, index) => {
                   return activeQuestion === index ? (
                     activeQuestion === questions.length - 1 ? (
-                      <div>
+                      <div className="nav__btn">
                         <button
                           className="button button-large button-circle button-3d button-dirtygreen"
                           onClick={() => {
@@ -147,16 +134,18 @@ const Question = () => {
                         </Link>
                       </div>
                     ) : activeQuestion === index && index === 0 ? (
-                      <button
-                        className="button button-large button-circle button-3d button-dirtygreen"
-                        onClick={() => {
-                          setActiveQuestion(activeQuestion + 1);
-                        }}
-                      >
-                        Next
-                      </button>
+                      <div className="nav__btn">
+                        <button
+                          className="button button-large button-circle button-3d button-dirtygreen"
+                          onClick={() => {
+                            setActiveQuestion(activeQuestion + 1);
+                          }}
+                        >
+                          Next
+                        </button>
+                      </div>
                     ) : (
-                      <div>
+                      <div className="nav__btn">
                         <button
                           className="button button-large button-circle button-3d button-dirtygreen"
                           onClick={() => {

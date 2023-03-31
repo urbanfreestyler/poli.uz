@@ -1,8 +1,3 @@
-// - Remove console.log statements as they can slow down the application.
-// - Instead of using Object.keys to get the length of correctAnswers and incorrectAnswers, use the length property directly as it is faster and more efficient.
-// - Consider using useMemo hook to memoize the Results component and avoid unnecessary re-renders.
-// - Consider using React.memo to memoize the Result component and avoid unnecessary re-renders.
-
 import React, { useMemo } from "react";
 import { useLocation } from "react-router-dom";
 import Navbar from "../Navbar/Navbar";
@@ -11,36 +6,40 @@ import "./Result.css";
 const Result = (props) => {
   const location = useLocation();
   const resultData = location.state;
+  const selectedAnswers = resultData.selectedAnswers;
+  const questions = resultData.questions;
   const answers = resultData.answers;
-  const correctAnswers = resultData.correctAnswers;
-  const incorrectAnswers = resultData.incorrectAnswers;
+  console.log(answers);
 
-  const Results = useMemo(() => {
-    const correctPoints = correctAnswers.length;
-    const incorrrectPoints = incorrectAnswers.length;
+  let correctAnswers = 0;
+  let incorrectAnswers = 0;
 
-    const result = 1.5 * correctPoints - 0.5 * incorrrectPoints;
+  questions &&
+    questions.map((question, index) => {
+      const selectedAnswer = selectedAnswers[question];
+      const correctAnswer = answers[selectedAnswer];
 
-    return (
-      <div>
-        <div>Correct answers: {correctPoints}</div>
-        <div>Incorrect answers: {incorrrectPoints}</div>
-        <div>Result: {result}</div>
-      </div>
-    );
-  }, [correctAnswers, incorrectAnswers]);
+      console.log(selectedAnswer);
+      console.log(correctAnswer);
+
+      if (correctAnswer === selectedAnswer) {
+        correctAnswers++;
+      } else {
+        incorrectAnswers++;
+      }
+    });
+
+  const result = 1.5 * correctAnswers - 0.5 * incorrectAnswers;
+  console.log(correctAnswers);
+  console.log(incorrectAnswers);
 
   return (
     <>
       <Navbar />
       <div className="result__container">
         <div>YourResult</div>
-        {Results}
+        {result}
       </div>
-      {answers &&
-        answers.map((question, index) => {
-          return <div>{answers.question}</div>;
-        })}
     </>
   );
 };

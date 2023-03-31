@@ -1,6 +1,10 @@
+import axios from "axios";
+
+const host_url = "http://127.0.0.1:4000/";
+
 const fetchData = async (url) => {
   try {
-    const response = await axios.get(api_url + url);
+    const response = await axios.get(host_url + url);
     return response.data;
   } catch (err) {
     console.log(err);
