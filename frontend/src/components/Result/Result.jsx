@@ -17,11 +17,8 @@ const Result = (props) => {
     questions &&
       questions.map((question, index) => {
         const selectedAnswerId = selectedAnswers[question.id];
-        if (answers[selectedAnswerId] !== undefined) {
-          answers[selectedAnswerId].is_correct
-            ? correctAnswers++
-            : incorrectAnswers++;
-        }
+        const answer = answers.find((answer) => answer.id === selectedAnswerId);
+        answer.is_correct ? correctAnswers++ : incorrectAnswers++;
       });
 
     const result = 1.5 * correctAnswers - 0.5 * incorrectAnswers;
@@ -43,8 +40,8 @@ const Result = (props) => {
                     {answer.text}{" "}
                     {selectedAnswers[question.id] === answer.id &&
                       !answer.is_correct &&
-                      "incorrect"}
-                    {answer.is_correct && "correct"}
+                      "❌"}
+                    {answer.is_correct && "✅"}
                   </div>
                 );
               })}
@@ -57,8 +54,9 @@ const Result = (props) => {
   return (
     <>
       <Navbar />
+
       <div className="result__container">
-        <div>YourResult</div>
+        <div className="result__score">Your Score:</div>
         {calculateResult()}
       </div>
 

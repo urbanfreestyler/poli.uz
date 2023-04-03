@@ -268,6 +268,8 @@
   padding: 20px;
   border-radius: 10px;
   background-color: #f2f2f2;
+  display: flex;
+  align-items: center;
 }
 
 .questions__content {
@@ -276,6 +278,7 @@
   justify-content: space-between;
 
   height: 100%;
+  max-height: 700px;
 }
 
 .questions__text {
