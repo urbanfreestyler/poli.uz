@@ -10,5 +10,5 @@ urlpatterns = [
 
     path('api/quiz-questions/<int:pk>', views.get_quiz_questions),
 
-    path('api/answers/<int:pk>', views.answers_list),
+    path('api/answers/<int:variant_id>', views.get_answers_by_variant),
 ]

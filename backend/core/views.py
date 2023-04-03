@@ -6,6 +6,7 @@ from rest_framework.decorators import api_view
 from rest_framework import status
 from .models import *
 from .serializers import *
+from django.shortcuts import get_object_or_404
 
 
 @api_view(['GET'])
@@ -76,6 +77,16 @@ def get_quiz_questions(request, pk):
             {'message': 'This variant does not exist'}, status=status.HTTP_404_NOT_FOUND)
     if request.method == 'GET':
         serializer = QuestionSerializer(questions, many=True)
+        return JsonResponse(serializer.data, safe=False)
+
+
+@api_view(['GET'])
+def get_answers_by_variant(request, variant_id):
+    if request.method == "GET":
+        variant = get_object_or_404(Variant, pk=variant_id)
+        questions = variant.questions.all()
+        answers = Answer.objects.filter(question__in=questions)
+        serializer = AnswerSerializer(answers, many=True)
         return JsonResponse(serializer.data, safe=False)
 
 

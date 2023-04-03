@@ -1,4 +1,4 @@
-import React, { useMemo } from "react";
+import React from "react";
 import { useLocation } from "react-router-dom";
 import Navbar from "../Navbar/Navbar";
 import "./Result.css";
@@ -9,37 +9,60 @@ const Result = (props) => {
   const selectedAnswers = resultData.selectedAnswers;
   const questions = resultData.questions;
   const answers = resultData.answers;
-  console.log(answers);
 
   let correctAnswers = 0;
   let incorrectAnswers = 0;
 
-  questions &&
-    questions.map((question, index) => {
-      const selectedAnswer = selectedAnswers[question];
-      const correctAnswer = answers[selectedAnswer];
+  const calculateResult = () => {
+    questions &&
+      questions.map((question, index) => {
+        const selectedAnswerId = selectedAnswers[question.id];
+        if (answers[selectedAnswerId] !== undefined) {
+          answers[selectedAnswerId].is_correct
+            ? correctAnswers++
+            : incorrectAnswers++;
+        }
+      });
 
-      console.log(selectedAnswer);
-      console.log(correctAnswer);
+    const result = 1.5 * correctAnswers - 0.5 * incorrectAnswers;
+    return result;
+  };
 
-      if (correctAnswer === selectedAnswer) {
-        correctAnswers++;
-      } else {
-        incorrectAnswers++;
-      }
-    });
-
-  const result = 1.5 * correctAnswers - 0.5 * incorrectAnswers;
-  console.log(correctAnswers);
-  console.log(incorrectAnswers);
+  const showQuestionsWithAnswers = () => {
+    return (
+      questions &&
+      questions.map((question, index) => {
+        return (
+          <div>
+            <div key={question.id}>{question.text}</div>
+            {answers
+              .filter((answer) => answer.question === question.id)
+              .map((answer) => {
+                return (
+                  <div key={answer.id}>
+                    {answer.text}{" "}
+                    {selectedAnswers[question.id] === answer.id &&
+                      !answer.is_correct &&
+                      "incorrect"}
+                    {answer.is_correct && "correct"}
+                  </div>
+                );
+              })}
+          </div>
+        );
+      })
+    );
+  };
 
   return (
     <>
       <Navbar />
       <div className="result__container">
         <div>YourResult</div>
-        {result}
+        {calculateResult()}
       </div>
+
+      <div>{showQuestionsWithAnswers()}</div>
     </>
   );
 };
