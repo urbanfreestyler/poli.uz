@@ -17,8 +17,15 @@ const Result = (props) => {
     questions &&
       questions.map((question, index) => {
         const selectedAnswerId = selectedAnswers[question.id];
-        const answer = answers.find((answer) => answer.id === selectedAnswerId);
-        answer.is_correct ? correctAnswers++ : incorrectAnswers++;
+        try {
+          const answer = answers.find(
+            (answer) => answer.id === selectedAnswerId
+          );
+          answer.is_correct ? correctAnswers++ : incorrectAnswers++;
+        } catch (err) {
+          console.log(err);
+          return err;
+        }
       });
 
     const result = 1.5 * correctAnswers - 0.5 * incorrectAnswers;

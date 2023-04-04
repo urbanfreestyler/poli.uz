@@ -7,8 +7,13 @@
 }
 
 .navbar a {
-  padding: 15px 0;
   text-decoration: none;
   font-size: min(5vw, 32px);
   color: #fff;
+  height: 100%;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 10px 0;
 }

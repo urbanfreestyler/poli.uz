@@ -16,15 +16,6 @@ const Question = () => {
 
   const [selectedAnswers, setSelectedAnswers] = useState({});
 
-  const handleAnswer = (answer) => {
-    const question = answer.question;
-    const id = answer.id;
-    id === selectedAnswers[question]
-      ? delete selectedAnswers[question]
-      : (selectedAnswers[question] = id);
-    console.log(selectedAnswers);
-  };
-
   const questionList = async (pk) => {
     const questions = await getQuestions(pk);
     setQuestions(questions);
@@ -43,7 +34,16 @@ const Question = () => {
     fetchData();
   }, [quiz_id]);
 
-  const changeQuestion = (index) => {
+  const handleAnswer = (answer) => {
+    const question = answer.question;
+    const id = answer.id;
+    id === selectedAnswers[question]
+      ? delete selectedAnswers[question]
+      : (selectedAnswers[question] = id);
+    console.log(selectedAnswers);
+  };
+
+  const handleQuestionChange = (index) => {
     setActiveQuestion(index);
   };
 
@@ -55,7 +55,7 @@ const Question = () => {
 
   return (
     <>
-      <div className="page_container">
+      <div div className="page_container">
         <Navbar />
         <div className="questions__wrapper">
           <div className="questions__list">
@@ -68,7 +68,7 @@ const Question = () => {
                       key={index + 1}
                       className=""
                       onClick={() => {
-                        changeQuestion(index);
+                        handleQuestionChange(index);
                       }}
                     >
                       {index + 1}
@@ -81,91 +81,78 @@ const Question = () => {
             <div className="questions__content">
               {questions &&
                 questions.map((question, index) => {
-                  return activeQuestion === index ? (
-                    <div>
-                      Question {index + 1}
-                      <div className="questions__text" key={question.id}>
-                        {question.text}
+                  return (
+                    activeQuestion === index && (
+                      <div>
+                        Question {index + 1}
+                        <div className="questions__text" key={question.id}>
+                          {question.text}
+                        </div>
                       </div>
-                    </div>
-                  ) : null;
+                    )
+                  );
                 })}
               <div>
                 <ul className="list-group">
                   {answers &&
                     answers.map((answer, index) => {
-                      return activeQuestion === answer.question - 1 ? (
-                        <div
-                          className={
-                            answer.id === selectedAnswers[answer.question]
-                              ? "list-group-item answer selected"
-                              : "list-group-item answer"
-                          }
-                          key={answer.id}
-                          onClick={() => {
-                            handleAnswer(answer);
-                          }}
-                        >
-                          {answer.text}
-                        </div>
-                      ) : null;
+                      return (
+                        activeQuestion === answer.question - 1 && (
+                          <div
+                            className={
+                              answer.id === selectedAnswers[answer.question]
+                                ? "list-group-item answer selected"
+                                : "list-group-item answer"
+                            }
+                            key={answer.id}
+                            onClick={() => {
+                              handleAnswer(answer);
+                            }}
+                          >
+                            {answer.text}
+                          </div>
+                        )
+                      );
                     })}
                 </ul>
               </div>
-              {questions &&
-                questions.map((question, index) => {
-                  return activeQuestion === index ? (
-                    activeQuestion === questions.length - 1 ? (
-                      <div className="nav__btn">
-                        <button
-                          className="button button-large button-circle button-3d button-dirtygreen"
-                          onClick={() => {
-                            setActiveQuestion(activeQuestion - 1);
-                          }}
-                        >
-                          Prev.
-                        </button>
-                        <Link
-                          className="button button-large button-circle button-3d button-dirtygreen"
-                          to="/result"
-                          state={resultData}
-                        >
-                          Finish
-                        </Link>
-                      </div>
-                    ) : activeQuestion === index && index === 0 ? (
-                      <div className="nav__btn">
-                        <button
-                          className="button button-large button-circle button-3d button-dirtygreen"
-                          onClick={() => {
-                            setActiveQuestion(activeQuestion + 1);
-                          }}
-                        >
-                          Next
-                        </button>
-                      </div>
-                    ) : (
-                      <div className="nav__btn">
-                        <button
-                          className="button button-large button-circle button-3d button-dirtygreen"
-                          onClick={() => {
-                            setActiveQuestion(activeQuestion - 1);
-                          }}
-                        >
-                          Prev.
-                        </button>
-                        <button
-                          className="button button-large button-circle button-3d button-dirtygreen"
-                          onClick={() => {
-                            setActiveQuestion(activeQuestion + 1);
-                          }}
-                        >
-                          Next
-                        </button>
-                      </div>
-                    )
-                  ) : null;
-                })}
+              <div className="nav__btns">
+                {questions && activeQuestion > 0 && (
+                  <div className="nav__btn">
+                    <button
+                      className="button button-large button-circle button-3d button-dirtygreen"
+                      onClick={() => {
+                        setActiveQuestion(activeQuestion - 1);
+                      }}
+                    >
+                      Prev.
+                    </button>
+                  </div>
+                )}
+                {questions && activeQuestion < questions.length - 1 && (
+                  <div className="nav__btn">
+                    <button
+                      className="button button-large button-circle button-3d button-dirtygreen"
+                      onClick={() => {
+                        setActiveQuestion(activeQuestion + 1);
+                      }}
+                    >
+                      Next
+                    </button>
+                  </div>
+                )}
+                {questions && activeQuestion === questions.length - 1 && (
+                  <div className="nav__btn">
+                    <Link
+                      className="button button-large button-circle button-3d button-dirtygreen"
+                      to="/result"
+                      state={resultData}
+                    >
+                      Finish
+                    </Link>
+                  </div>
+                )}
+              </div>
             </div>
           </div>
         </div>
