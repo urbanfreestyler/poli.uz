@@ -93,17 +93,17 @@ const Question = () => {
                   );
                 })}
               <div>
-                <ul className="list-group">
+                <ol className="list-group answers__list">
                   {answers &&
                     answers.map((answer, index) => {
                       return (
                         activeQuestion === answer.question - 1 && (
                           <div
-                            className={
+                            className={`list-group-item answer ${
                               answer.id === selectedAnswers[answer.question]
-                                ? "list-group-item answer selected"
-                                : "list-group-item answer"
-                            }
+                                ? "selected"
+                                : ""
+                            }`}
                             key={answer.id}
                             onClick={() => {
                               handleAnswer(answer);
@@ -114,7 +114,7 @@ const Question = () => {
                         )
                       );
                     })}
-                </ul>
+                </ol>
               </div>
               <div className="nav__btns">
                 {questions && activeQuestion > 0 && (
