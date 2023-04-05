@@ -25,6 +25,17 @@ const Question = () => {
     const answers = await getAnswers(pk);
     setAnswers(answers);
   };
+  const handleAnswer = (answer) => {
+    const question = answer.question;
+    const id = answer.id;
+    if (question === selectedAnswers[question]) {
+      const newAnswers = { ...selectedAnswers };
+      delete newAnswers[question];
+      setSelectedAnswers(newAnswers);
+    } else {
+      setSelectedAnswers({ ...selectedAnswers, [question]: id });
+    }
+  };
 
   useEffect(() => {
     const fetchData = async () => {
@@ -32,16 +43,9 @@ const Question = () => {
       await answersList(quiz_id);
     };
     fetchData();
-  }, [quiz_id]);
 
-  const handleAnswer = (answer) => {
-    const question = answer.question;
-    const id = answer.id;
-    id === selectedAnswers[question]
-      ? delete selectedAnswers[question]
-      : (selectedAnswers[question] = id);
     console.log(selectedAnswers);
-  };
+  }, [quiz_id, selectedAnswers]);
 
   const handleQuestionChange = (index) => {
     setActiveQuestion(index);
@@ -99,17 +103,17 @@ const Question = () => {
                       return (
                         activeQuestion === answer.question - 1 && (
                           <div
-                            className={`list-group-item answer ${
-                              answer.id === selectedAnswers[answer.question]
+                            key={answer.id}
+                            className={`answer ${
+                              selectedAnswers[answer.question] === answer.id
                                 ? "selected"
                                 : ""
                             }`}
-                            key={answer.id}
                             onClick={() => {
                               handleAnswer(answer);
                             }}
                           >
-                            {answer.text}
+                            <li>{answer.text}</li>
                           </div>
                         )
                       );
@@ -144,7 +148,7 @@ const Question = () => {
                 {questions && activeQuestion === questions.length - 1 && (
                   <div className="nav__btn">
                     <Link
-                      className="button button-large button-circle button-3d button-dirtygreen"
+                      className="button button-large button-circle button-3d"
                       to="/result"
                       state={resultData}
                     >
