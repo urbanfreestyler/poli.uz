@@ -6,7 +6,6 @@ import "./Result.css";
 const Result = (props) => {
   const location = useLocation();
   const resultData = location.state;
-  const selectedAnswers = resultData.selectedAnswers;
   const questions = resultData.questions;
   const answers = resultData.answers;
 
@@ -16,15 +15,11 @@ const Result = (props) => {
   const calculateResult = () => {
     questions &&
       questions.map((question, index) => {
-        const selectedAnswerId = selectedAnswers[question.id];
-        try {
+        if (question.selectedAnswer) {
           const answer = answers.find(
-            (answer) => answer.id === selectedAnswerId
+            (answer) => answer.id === question.selectedAnswer
           );
           answer.is_correct ? correctAnswers++ : incorrectAnswers++;
-        } catch (err) {
-          console.log(err);
-          return err;
         }
       });
 
@@ -45,7 +40,7 @@ const Result = (props) => {
                 return (
                   <div key={answer.id}>
                     {answer.text}{" "}
-                    {selectedAnswers[question.id] === answer.id &&
+                    {question.selectedAnswer === answer.id &&
                       !answer.is_correct &&
                       "❌"}
                     {answer.is_correct && "✅"}

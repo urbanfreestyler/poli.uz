@@ -1,6 +1,6 @@
 import "./App.css";
 import Variants from "./components/Variants/Variants";
-import Question from "./components/Questions/Questions";
+import Questions from "./components/Questions/Questions";
 
 import ReactDOM from "react-dom/client";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
@@ -11,7 +11,7 @@ function App() {
     <BrowserRouter>
       <Routes>
         <Route exact path="/" element={<Variants />} />
-        <Route path="/quiz/:quiz_id" element={<Question />} />
+        <Route path="/quiz/:quiz_id" element={<Questions />} />
         <Route path="/result/" element={<Result />} />
       </Routes>
     </BrowserRouter>

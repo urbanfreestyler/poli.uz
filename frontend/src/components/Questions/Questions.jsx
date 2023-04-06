@@ -5,8 +5,9 @@ import { Link } from "react-router-dom";
 import Navbar from "../Navbar/Navbar";
 import { getQuestions, getAnswers } from "../queries";
 import "./Questions.css";
+import Question from "./Question";
 
-const Question = () => {
+const Questions = () => {
   const { quiz_id } = useParams();
 
   const [questions, setQuestions] = useState(null);
@@ -14,9 +15,7 @@ const Question = () => {
 
   const [activeQuestion, setActiveQuestion] = useState(0);
 
-  const [selectedAnswers, setSelectedAnswers] = useState({});
-
-  const questionList = async (pk) => {
+  const questionsList = async (pk) => {
     const questions = await getQuestions(pk);
     setQuestions(questions);
   };
@@ -25,34 +24,32 @@ const Question = () => {
     const answers = await getAnswers(pk);
     setAnswers(answers);
   };
-  const handleAnswer = (answer) => {
-    const question = answer.question;
-    const id = answer.id;
-    if (question === selectedAnswers[question]) {
-      const newAnswers = { ...selectedAnswers };
-      delete newAnswers[question];
-      setSelectedAnswers(newAnswers);
-    } else {
-      setSelectedAnswers({ ...selectedAnswers, [question]: id });
-    }
-  };
 
   useEffect(() => {
     const fetchData = async () => {
-      await questionList(quiz_id);
+      await questionsList(quiz_id);
       await answersList(quiz_id);
     };
     fetchData();
-
-    console.log(selectedAnswers);
-  }, [quiz_id, selectedAnswers]);
+  }, [quiz_id]);
 
   const handleQuestionChange = (index) => {
     setActiveQuestion(index);
   };
 
+  function handleSelect(answer) {
+    // Обновляем список вопросов, создавая копию и изменяя выбранный вариант ответа
+    const updatedQuestions = [...questions];
+    updatedQuestions[activeQuestion] = {
+      ...updatedQuestions[activeQuestion],
+      selectedAnswer: answer,
+    };
+
+    // Обновляем список вопросов в состоянии
+    setQuestions(updatedQuestions);
+  }
+
   const resultData = {
-    selectedAnswers,
     questions,
     answers,
   };
@@ -83,43 +80,21 @@ const Question = () => {
           </div>
           <div className="questions__answer_wrapper">
             <div className="questions__content">
-              {questions &&
-                questions.map((question, index) => {
-                  return (
-                    activeQuestion === index && (
-                      <div>
-                        Question {index + 1}
-                        <div className="questions__text" key={question.id}>
-                          {question.text}
-                        </div>
-                      </div>
+              {questions && (
+                <Question
+                  key={questions && questions[activeQuestion].id}
+                  question={questions && questions[activeQuestion]}
+                  answers={
+                    answers &&
+                    answers.filter(
+                      (answer) =>
+                        answer.question === questions[activeQuestion].id
                     )
-                  );
-                })}
-              <div>
-                <ol className="list-group answers__list">
-                  {answers &&
-                    answers.map((answer, index) => {
-                      return (
-                        activeQuestion === answer.question - 1 && (
-                          <div
-                            key={answer.id}
-                            className={`answer ${
-                              selectedAnswers[answer.question] === answer.id
-                                ? "selected"
-                                : ""
-                            }`}
-                            onClick={() => {
-                              handleAnswer(answer);
-                            }}
-                          >
-                            <li>{answer.text}</li>
-                          </div>
-                        )
-                      );
-                    })}
-                </ol>
-              </div>
+                  }
+                  onSelect={handleSelect}
+                />
+              )}
+
               <div className="nav__btns">
                 {questions && activeQuestion > 0 && (
                   <div className="nav__btn">
@@ -165,4 +140,4 @@ const Question = () => {
   );
 };
 
-export default Question;
+export default Questions;
