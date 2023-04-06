@@ -4,3 +4,146 @@
 
   box-sizing: border-box;
 }
+
+html {
+  --main-dark: #151965;
+  --secondary-dark: #32407b;
+  --main-light: #46b5d1;
+  --secondary-light: #515585;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  color: var(--main-light);
+  font-weight: 600;
+  line-height: 1.5;
+  margin: 0 0 30px 0;
+}
+
+h5,
+h6 {
+  margin-bottom: 20px;
+}
+
+h1 {
+  font-size: 36px;
+}
+
+h2 {
+  font-size: 30px;
+}
+
+h3 {
+  font-size: 1.5rem;
+}
+
+h4 {
+  font-size: 18px;
+}
+
+h5 {
+  font-size: 0.875rem;
+}
+
+h6 {
+  font-size: 12px;
+}
+
+h4 {
+  font-weight: 600;
+}
+
+h5,
+h6 {
+  font-weight: bold;
+}
+
+@media (max-width: 767.98px) {
+  h1 {
+    font-size: 1.75rem;
+  }
+
+  h2 {
+    font-size: 1.5rem;
+  }
+
+  h3 {
+    font-size: 1.25rem;
+  }
+
+  h4 {
+    font-size: 1rem;
+  }
+}
+
+h1 > span:not(.nocolor):not(.badge),
+h2 > span:not(.nocolor):not(.badge),
+h3 > span:not(.nocolor):not(.badge),
+h4 > span:not(.nocolor):not(.badge),
+h5 > span:not(.nocolor):not(.badge),
+h6 > span:not(.nocolor):not(.badge) {
+  color: var(--main-light);
+}
+
+p,
+pre,
+ul,
+ol,
+dl,
+dd,
+blockquote,
+address,
+table,
+fieldset,
+form {
+  margin-bottom: 30px;
+}
+
+li {
+  color: var(--main-dark);
+}
+
+small {
+  font-family: "Lato", sans-serif;
+}
+
+@media (max-width: 1200px) {
+  .display-1 {
+    font-size: calc(1.725rem + 5.7vw);
+  }
+  .display-2 {
+    font-size: calc(1.675rem + 5.1vw);
+  }
+  .display-3 {
+    font-size: calc(1.575rem + 3.9vw);
+  }
+  .display-4 {
+    font-size: calc(1.475rem + 2.7vw);
+  }
+}
+
+#wrapper {
+  position: relative;
+  float: none;
+  width: 100%;
+  margin: 0 auto;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  -moz-box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  -webkit-box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+@media (min-width: 1200px) {
+  body:not(.stretched) #wrapper {
+    max-width: 1200px;
+  }
+}
+
+@media (min-width: 1440px) {
+  body:not(.stretched) #wrapper {
+    max-width: 1440px;
+  }
+}

@@ -8,3 +8,31 @@
   max-width: 920px;
   margin: auto;
 }
+
+.result_wrapper {
+  background: var(--main-dark);
+}
+
+.result_answer {
+  font-weight: bold;
+  font-size: 1rem;
+  line-height: 1.5;
+  padding-left: 25px;
+  /* margin-left: 5px; */
+  margin-bottom: 10px;
+  line-height: 2rem !important;
+
+  border: 1px solid rgba(0, 0, 0, 0.125);
+  border-radius: 10px;
+
+  background-color: var(--main-light);
+  color: var(--secondary-dark);
+}
+
+.correct {
+  background: green;
+}
+
+.incorrect {
+  background: red;
+}

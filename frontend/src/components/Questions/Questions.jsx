@@ -38,14 +38,12 @@ const Questions = () => {
   };
 
   function handleSelect(answer) {
-    // Обновляем список вопросов, создавая копию и изменяя выбранный вариант ответа
     const updatedQuestions = [...questions];
     updatedQuestions[activeQuestion] = {
       ...updatedQuestions[activeQuestion],
       selectedAnswer: answer,
     };
 
-    // Обновляем список вопросов в состоянии
     setQuestions(updatedQuestions);
   }
 
@@ -56,11 +54,11 @@ const Questions = () => {
 
   return (
     <>
-      <div div className="page_container">
+      <div className="page_container">
         <Navbar />
-        <div className="questions__wrapper">
+        <div className="questions__wrapper" id="wrapper">
           <div className="questions__list">
-            <p>Questions</p>
+            <h4>Questions</h4>
             <div className="questions__btns">
               {questions &&
                 questions.map((question, index) => {
@@ -68,6 +66,7 @@ const Questions = () => {
                     <button
                       key={index + 1}
                       className=""
+                      disabled={activeQuestion === index}
                       onClick={() => {
                         handleQuestionChange(index);
                       }}
@@ -78,6 +77,7 @@ const Questions = () => {
                 })}
             </div>
           </div>
+
           <div className="questions__answer_wrapper">
             <div className="questions__content">
               {questions && (
@@ -92,6 +92,7 @@ const Questions = () => {
                     )
                   }
                   onSelect={handleSelect}
+                  activeQuestion={activeQuestion}
                 />
               )}
 

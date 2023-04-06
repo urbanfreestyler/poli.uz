@@ -32,21 +32,42 @@ const Result = (props) => {
       questions &&
       questions.map((question, index) => {
         return (
-          <div>
-            <div key={question.id}>{question.text}</div>
-            {answers
-              .filter((answer) => answer.question === question.id)
-              .map((answer) => {
-                return (
-                  <div key={answer.id}>
-                    {answer.text}{" "}
-                    {question.selectedAnswer === answer.id &&
-                      !answer.is_correct &&
-                      "❌"}
-                    {answer.is_correct && "✅"}
-                  </div>
-                );
-              })}
+          <div className="questions__content">
+            <div className="questions__text" key={question.id}>
+              <h4>
+                {index + 1}. {question.text}
+              </h4>
+            </div>
+            <div>
+              <ol className="list-group answers__list">
+                {answers &&
+                  answers
+                    .filter((answer) => answer.question === question.id)
+                    .map((answer, index) => {
+                      return (
+                        <div
+                          key={answer.id}
+                          className={`result_answer
+                          ${answer.is_correct ? "correct" : ""}
+                          ${
+                            question.selectedAnswer === answer.id &&
+                            answer.is_correct
+                              ? "selected"
+                              : ""
+                          } ${
+                            question.selectedAnswer === answer.id &&
+                            !answer.is_correct
+                              ? "incorrect"
+                              : ""
+                          }
+                        `}
+                        >
+                          <li>{answer.text}</li>
+                        </div>
+                      );
+                    })}
+              </ol>
+            </div>
           </div>
         );
       })
@@ -54,16 +75,18 @@ const Result = (props) => {
   };
 
   return (
-    <>
+    <div className="result_wrapper">
       <Navbar />
+      <div id="wrapper">
+        <div className="result__container">
+          <div className="result__score">
+            <h3>Your Score: {calculateResult()}</h3>
+          </div>
+        </div>
 
-      <div className="result__container">
-        <div className="result__score">Your Score:</div>
-        {calculateResult()}
+        <div>{showQuestionsWithAnswers()}</div>
       </div>
-
-      <div>{showQuestionsWithAnswers()}</div>
-    </>
+    </div>
   );
 };
 

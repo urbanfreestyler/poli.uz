@@ -1,4 +1,4 @@
-const Question = ({ question, answers, onSelect }) => {
+const Question = ({ question, answers, onSelect, activeQuestion }) => {
   const handleOptionClick = (option) => {
     if (question.selectedAnswer === option) {
       onSelect(null);
@@ -10,8 +10,10 @@ const Question = ({ question, answers, onSelect }) => {
   return (
     <>
       <div>
+        <h5>Question {activeQuestion + 1}</h5>
+
         <div className="questions__text" key={question.id}>
-          {question.text}
+          <h5>{question.text}</h5>
         </div>
       </div>
       <div>
@@ -28,7 +30,7 @@ const Question = ({ question, answers, onSelect }) => {
                     handleOptionClick(answer.id);
                   }}
                 >
-                  <li>{answer.text}</li>
+                    <li>{answer.text}</li>
                 </div>
               );
             })}
