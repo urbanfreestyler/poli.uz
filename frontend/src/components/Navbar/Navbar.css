@@ -9,15 +9,20 @@
 .navbar a {
   text-decoration: none;
   color: var(--main-light);
-  font-size: min(5vw, 32px);
+  font-size: 1.8rem;
+  padding: 5px 0;
   height: 100%;
   width: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 10px 0;
+  text-align: center;
 }
 
 .navbar a:hover {
   color: #fff;
+}
+
+@media screen and (max-width: 768px) {
+  .navbar a {
+    font-size: 1.2rem;
+    padding: 10px 0;
+  }
 }

@@ -1,7 +1,8 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
 import Navbar from "../Navbar/Navbar";
 import "./Result.css";
+import { get_explanation } from "../queries";
 
 const Result = (props) => {
   const location = useLocation();
@@ -9,6 +10,26 @@ const Result = (props) => {
   const questions = resultData.questions;
   const answers = resultData.answers;
 
+  const [explanations, setExplanations] = useState([]);
+
+  const fetchExplanation = async (question_id) => {
+    const explanation = await get_explanation(question_id);
+    return explanation;
+  };
+
+  const getExplanations = async () => {
+    for (let i = 0; i < questions.length; i++) {
+      const question = questions[i];
+      const explanation = await fetchExplanation(question.id);
+      setExplanations((prevState) => {
+        return [...prevState, explanation.text];
+      });
+    }
+  };
+
+  useEffect(() => {
+    getExplanations();
+  }, []);
   let correctAnswers = 0;
   let incorrectAnswers = 0;
 
@@ -31,6 +52,7 @@ const Result = (props) => {
     return (
       questions &&
       questions.map((question, index) => {
+        const explanation = explanations[index];
         return (
           <div className="questions__content">
             <div className="questions__text" key={question.id}>
@@ -47,26 +69,31 @@ const Result = (props) => {
                       return (
                         <div
                           key={answer.id}
-                          className={`result_answer
-                          ${answer.is_correct ? "correct" : ""}
-                          ${
+                          className={`result_answer ${
                             question.selectedAnswer === answer.id &&
                             answer.is_correct
-                              ? "selected"
+                              ? "correct"
                               : ""
-                          } ${
+                          }${
                             question.selectedAnswer === answer.id &&
                             !answer.is_correct
                               ? "incorrect"
                               : ""
                           }
-                        `}
+                          ${
+                            question.selectedAnswer && answer.is_correct
+                              ? "correct"
+                              : ""
+                          }`}
                         >
                           <li>{answer.text}</li>
                         </div>
                       );
                     })}
               </ol>
+            </div>
+            <div className="questions__text" key={`explanation${question.id}`}>
+              <h4>Explanation: {explanation}</h4>
             </div>
           </div>
         );
@@ -77,14 +104,14 @@ const Result = (props) => {
   return (
     <div className="result_wrapper">
       <Navbar />
-      <div id="wrapper">
+      <div id="wrapper" className="result__questions">
         <div className="result__container">
           <div className="result__score">
             <h3>Your Score: {calculateResult()}</h3>
           </div>
         </div>
 
-        <div>{showQuestionsWithAnswers()}</div>
+        <div>{explanations.length > 0 && showQuestionsWithAnswers()}</div>
       </div>
     </div>
   );

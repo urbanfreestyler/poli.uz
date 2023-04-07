@@ -6,8 +6,6 @@
   font-weight: bold;
   font-size: 1rem;
   line-height: 1.5;
-  padding-left: 10px;
-  margin-left: 10px;
   margin-bottom: 10px;
   line-height: 2rem !important;
 
@@ -25,6 +23,7 @@
 
 .selected {
   background: var(--secondary-dark);
+  color: var(--main-light);
 }
 
 .answer li {
@@ -63,13 +62,14 @@
 .questions__list {
   width: 30%;
   background: var(--main-dark);
+  padding: 10px;
+
   /* background: transparent; */
 }
 
 .questions__btns {
   display: grid;
   grid-template-columns: repeat(5, 1fr);
-  margin-top: 20px;
   width: 100%;
 }
 
@@ -142,11 +142,6 @@
 
 .list-group-item:hover {
   background-color: #ddd;
-}
-
-.answers__list {
-  list-style: lower-latin;
-  list-style-type: lower-latin;
 }
 
 .button {
@@ -222,21 +217,13 @@
     flex: 1;
     height: 100%;
     width: 100%;
-    overflow-x: hidden;
-  }
-  .questions__btns {
-    display: grid;
-    align-items: center;
-    grid-template-columns: repeat(5, 1fr);
-    gap: 15px;
-    -ms-grid-column-align: center;
   }
 
   .questions__btns button {
     height: 1.5rem;
     font-size: 1rem;
     padding: 0;
-    margin-bottom: 5px;
+    margin-bottom: 0;
   }
 
   .questions__list {

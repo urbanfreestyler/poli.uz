@@ -17,7 +17,7 @@ function Variants() {
 
   return (
     <div className="wrapper">
-      <h2>Please choose a variant to start the quiz:</h2>
+      <h2>Please choose a variant to start the mock exam:</h2>
 
       <div className="variants-group">
         {data &&

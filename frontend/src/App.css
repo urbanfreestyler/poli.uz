@@ -21,7 +21,7 @@ h6 {
   color: var(--main-light);
   font-weight: 600;
   line-height: 1.5;
-  margin: 0 0 30px 0;
+  margin: 0 0 20px 0;
 }
 
 h5,
@@ -101,10 +101,6 @@ table,
 fieldset,
 form {
   margin-bottom: 30px;
-}
-
-li {
-  color: var(--main-dark);
 }
 
 small {

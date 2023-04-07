@@ -20,8 +20,11 @@ class Question(models.Model):
     def get_answer(self):
         return self.answers.all()
 
+    def get_exploration(self):
+        return self.explanation.all()
+
     def __str__(self):
-        return self.text
+        return f'{self.id} {self.text}'
 
 
 class Answer(models.Model):
@@ -35,9 +38,9 @@ class Answer(models.Model):
 
 
 class Explanation(models.Model):
-    text = models.TextField(max_length=4096)
+    text = models.CharField(max_length=4096)
     question = models.ForeignKey(Question, on_delete=models.CASCADE,
                                  related_name='explanation')
 
     def __str__(self):
-        return f"Explanation to a qustion {self.question.id}: {self.question.text}"
+        return f"Explanation for a question {self.question.id}: {self.question.text}"

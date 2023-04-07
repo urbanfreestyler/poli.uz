@@ -24,6 +24,6 @@ export const getAnswers = async (pk) => {
   return await fetchData(`api/answers/${pk}`);
 };
 
-export const getExplanations = async (pk) => {
-  return await fetchData(`api/explanations/${pk}`);
+export const get_explanation = async (question_id) => {
+  return await fetchData(`api/explanation/${question_id}`);
 };

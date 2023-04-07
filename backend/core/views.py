@@ -101,3 +101,14 @@ def answers_list(request, pk):
 
         serializer = AnswerSerializer(answers, many=True)
         return JsonResponse(serializer.data, safe=False)
+
+
+@api_view(['GET'])
+def get_explanation_for_question(request, question_id):
+    if request.method == "GET":
+        explanation = get_object_or_404(Explanation, question__pk=question_id)
+        serializer = ExplanationSerializer(explanation)
+        return JsonResponse(serializer.data, safe=False)
+    else:
+        return JsonResponse(
+            {'message': 'Invalid request'}, status=status.HTTP_400_BAD_REQUEST)
