@@ -8,8 +8,17 @@
   margin: auto;
 }
 
+.result__container h3 {
+  padding-top: 10px;
+}
+
 .result_wrapper {
-  background: var(--main-dark);
+  background: rgb(14, 47, 68);
+  background: radial-gradient(
+    circle,
+    rgba(14, 47, 68, 1) 0%,
+    rgba(102, 0, 102, 1) 100%
+  );
 }
 
 .result__questions {

@@ -6,10 +6,11 @@
 }
 
 html {
-  --main-dark: #151965;
-  --secondary-dark: #32407b;
-  --main-light: #46b5d1;
-  --secondary-light: #515585;
+  --main-dark: #0e2f44;
+  --secondary-dark: #660066;
+  --middle-dark: #daa520;
+  --main-light: #ffffff;
+  --secondary-light: #eed8ae;
 }
 
 h1,

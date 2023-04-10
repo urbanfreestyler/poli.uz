@@ -18,16 +18,17 @@
 
 .answer:hover {
   background: var(--secondary-light);
+  color: var(--main-dark);
   cursor: pointer;
 }
 
 .selected {
-  background: var(--secondary-dark);
+  background: var(--middle-dark);
   color: var(--main-light);
 }
 
 .answer li {
-  margin-left: 20px;
+  margin-left: 10px;
 }
 
 .list-group {
@@ -47,8 +48,14 @@
   flex-direction: column;
   height: 100vh;
   width: 100%;
-  background: rgb(21, 25, 101);
-  background: var(--main-dark);
+  /* background: transparent; */
+  background: rgb(14, 47, 68);
+  background: radial-gradient(
+    circle,
+    rgba(14, 47, 68, 1) 0%,
+    rgba(102, 0, 102, 1) 100%
+  );
+  /* background: var(--main-dark); */
 }
 
 .questions__wrapper {
@@ -56,12 +63,12 @@
   width: 100%;
   display: flex;
   justify-content: space-between;
-  background: transparent;
+  /* background: transparent; */
 }
 
 .questions__list {
   width: 30%;
-  background: var(--main-dark);
+  /* background: var(--main-dark); */
   padding: 10px;
 
   /* background: transparent; */
@@ -77,28 +84,32 @@
   margin: 5px 5px;
   padding: 0 5px;
   margin-bottom: 10px;
-  background-color: var(--secondary-light);
+  background-color: var(--secondary-dark);
+  border: 1px dashed var(--main-light);
   color: var(--main-light);
-  border: none;
+  font-weight: bold;
   border-radius: 5px;
   cursor: pointer;
   padding: 10px;
+  border-radius: 10px;
 }
 
 .questions__btns button:hover {
-  background-color: var(--secondary-dark);
+  background-color: var(--middle-dark);
+  color: var(--secondary-dark);
+  border: none;
 }
 
 .questions__btns button[disabled] {
-  background: var(--secondary-dark);
+  background: var(--main-dark);
+  color: var(--main-light);
   cursor: auto;
+  border: none;
 }
 
 .questions__answer_wrapper {
   width: 100%;
   padding: 20px;
-  background: var(--main-dark);
-
   display: flex;
   align-items: center;
 }
@@ -187,8 +198,8 @@
 }
 
 .button.button-dirtygreen:hover {
-  background-color: var(--main-light);
-  color: var(--secondary-light);
+  background-color: var(--secondary-dark);
+  color: var(--main-light);
   opacity: 0.9;
 }
 
@@ -201,8 +212,8 @@
 }
 
 .button-dirtygreen {
-  background-color: var(--secondary-light);
-  color: var(--main-light);
+  background-color: var(--main-light);
+  color: var(--main-dark);
 }
 
 .nav__btn a:hover {

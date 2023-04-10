@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const host_url = "http://127.0.0.1:4000/";
+const host_url = "https://api.poli.uz/";
 
 const fetchData = async (url) => {
   try {
