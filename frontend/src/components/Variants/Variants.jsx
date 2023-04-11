@@ -25,7 +25,7 @@ function Variants() {
 
   return (
     <div className="wrapper">
-      <h2>Please choose a variant to start the mock exam:</h2>
+      <h3>Please choose a variant to start the mock exam:</h3>
 
       <div className="variants-group">
         {data &&
@@ -46,6 +46,7 @@ function Variants() {
         aria-label="Loading Spinner"
         data-testid="loader"
       />
+      {loading && <p>Loading...</p>}
     </div>
   );
 }

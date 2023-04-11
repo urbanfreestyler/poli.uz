@@ -10,6 +10,8 @@ const Result = (props) => {
   const questions = resultData.questions;
   const answers = resultData.answers;
 
+  const [loading, setLoading] = useState(true);
+
   const [explanations, setExplanations] = useState([]);
 
   const fetchExplanation = async (question_id) => {
@@ -25,6 +27,7 @@ const Result = (props) => {
         return [...prevState, explanation.text];
       });
     }
+    setLoading(!loading);
   };
 
   useEffect(() => {

@@ -6,9 +6,16 @@ import Navbar from "../Navbar/Navbar";
 import { getQuestions, getAnswers } from "../queries";
 import "./Questions.css";
 import Question from "./Question";
+import ClipLoader from "react-spinners/ClipLoader";
 
 const Questions = () => {
   const { quiz_id } = useParams();
+  const [loading, setLoading] = useState(true);
+
+  const override: CSSProperties = {
+    display: "block",
+    margin: "10px auto",
+  };
 
   const [questions, setQuestions] = useState(null);
   const [answers, setAnswers] = useState(null);
@@ -18,6 +25,7 @@ const Questions = () => {
   const questionsList = async (pk) => {
     const questions = await getQuestions(pk);
     setQuestions(questions);
+    setLoading(!loading);
   };
 
   const answersList = async (pk) => {
@@ -76,10 +84,27 @@ const Questions = () => {
                   );
                 })}
             </div>
+            <ClipLoader
+              color={"#ffffff"}
+              loading={loading}
+              cssOverride={override}
+              size={30}
+              aria-label="Loading Spinner"
+              data-testid="loader"
+            />
+            {loading && <h5 style={{ textAlign: "center" }}>Loading...</h5>}
           </div>
 
           <div className="questions__answer_wrapper">
             <div className="questions__content">
+              <ClipLoader
+                color={"#ffffff"}
+                loading={loading}
+                cssOverride={override}
+                size={30}
+                aria-label="Loading Spinner"
+                data-testid="loader"
+              />
               {questions && (
                 <Question
                   key={questions && questions[activeQuestion].id}
