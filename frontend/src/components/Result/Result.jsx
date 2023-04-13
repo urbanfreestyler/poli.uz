@@ -3,6 +3,7 @@ import { useLocation } from "react-router-dom";
 import Navbar from "../Navbar/Navbar";
 import "./Result.css";
 import { get_explanation } from "../queries";
+import { ClipLoader } from "react-spinners";
 
 const Result = (props) => {
   const location = useLocation();
@@ -13,6 +14,11 @@ const Result = (props) => {
   const [loading, setLoading] = useState(true);
 
   const [explanations, setExplanations] = useState([]);
+
+  const override: CSSProperties = {
+    display: "block",
+    margin: "10px auto",
+  };
 
   const fetchExplanation = async (question_id) => {
     const explanation = await get_explanation(question_id);
@@ -26,8 +32,8 @@ const Result = (props) => {
       setExplanations((prevState) => {
         return [...prevState, explanation.text];
       });
+      setLoading(!loading);
     }
-    setLoading(!loading);
   };
 
   useEffect(() => {
@@ -113,7 +119,15 @@ const Result = (props) => {
             <h3>Your Score: {calculateResult()}</h3>
           </div>
         </div>
-
+        <ClipLoader
+          color={"#ffffff"}
+          loading={loading}
+          cssOverride={override}
+          size={30}
+          aria-label="Loading Spinner"
+          data-testid="loader"
+        />
+        {loading && <h4 className="text-center">Preparing your test review</h4>}
         <div>{explanations.length > 0 && showQuestionsWithAnswers()}</div>
       </div>
     </div>

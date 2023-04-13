@@ -101,6 +101,21 @@
   border: none;
 }
 
+@media (hover: none) {
+  .questions__btns button:hover {
+    color: inherit;
+    background: inherit;
+  }
+  .nav__btn:hover {
+    color: inherit;
+    background: inherit;
+  }
+  .button.button-dirtygreen:hover {
+    color: inherit;
+    background: inherit;
+  }
+}
+
 .questions__btns button[disabled] {
   background: var(--main-dark);
   color: var(--main-light);
@@ -152,9 +167,9 @@
   margin-bottom: 5px;
 }
 
-.list-group-item:hover {
+/* .list-group-item:hover {
   background-color: #ddd;
-}
+} */
 
 .button {
   display: inline-block;

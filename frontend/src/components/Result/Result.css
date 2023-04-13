@@ -19,6 +19,7 @@
     rgba(14, 47, 68, 1) 0%,
     rgba(102, 0, 102, 1) 100%
   );
+  min-height: 100vh;
 }
 
 .result__questions {
@@ -48,4 +49,8 @@
 .incorrect {
   background: red;
   color: #fff;
+}
+
+.text-center {
+  text-align: center;
 }
