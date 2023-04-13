@@ -13,7 +13,9 @@ const Question = ({ question, answers, onSelect, activeQuestion }) => {
         <h5>Question {activeQuestion + 1}</h5>
 
         <div className="questions__text" key={question.id}>
-          <h5>{question.text}</h5>
+          <h4>
+            <div dangerouslySetInnerHTML={{ __html: question.text }} />
+          </h4>
         </div>
       </div>
       <div>
@@ -30,7 +32,9 @@ const Question = ({ question, answers, onSelect, activeQuestion }) => {
                     handleOptionClick(answer.id);
                   }}
                 >
-                    <li>{answer.text}</li>
+                  <li>
+                    <div dangerouslySetInnerHTML={{ __html: answer.text }} />
+                  </li>
                 </div>
               );
             })}
