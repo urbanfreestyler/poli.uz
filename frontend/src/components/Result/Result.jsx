@@ -66,7 +66,8 @@ const Result = (props) => {
           <div className="questions__content">
             <div className="questions__text" key={question.id}>
               <h4>
-                {index + 1}. {question.text}
+                {index + 1}.{" "}
+                <div dangerouslySetInnerHTML={{ __html: question.text }} />
               </h4>
             </div>
             <div>
@@ -95,7 +96,11 @@ const Result = (props) => {
                               : ""
                           }`}
                         >
-                          <li>{answer.text}</li>
+                          <li>
+                            <div
+                              dangerouslySetInnerHTML={{ __html: answer.text }}
+                            />
+                          </li>
                         </div>
                       );
                     })}
