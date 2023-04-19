@@ -1,4 +1,5 @@
 from django.db import models
+from tinymce.models import HTMLField
 
 
 class Variant(models.Model):
@@ -12,7 +13,7 @@ class Variant(models.Model):
 
 
 class Question(models.Model):
-    text = models.TextField(max_length=2048)
+    text = HTMLField()
 
     variant = models.ForeignKey(Variant, on_delete=models.CASCADE,
                                 related_name='questions')
@@ -28,7 +29,7 @@ class Question(models.Model):
 
 
 class Answer(models.Model):
-    text = models.CharField(max_length=250)
+    text = HTMLField()
     is_correct = models.BooleanField(default=False)
     question = models.ForeignKey(Question, on_delete=models.CASCADE,
                                  related_name='answers')
@@ -38,7 +39,7 @@ class Answer(models.Model):
 
 
 class Explanation(models.Model):
-    text = models.CharField(max_length=4096)
+    text = HTMLField()
     question = models.ForeignKey(Question, on_delete=models.CASCADE,
                                  related_name='explanation')
 
