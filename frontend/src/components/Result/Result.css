@@ -13,17 +13,28 @@
 }
 
 .result_wrapper {
-  background: rgb(14, 47, 68);
-  background: radial-gradient(
-    circle,
-    rgba(14, 47, 68, 1) 0%,
-    rgba(102, 0, 102, 1) 100%
-  );
+  background: #41295a; /* fallback for old browsers */
+  background: -webkit-linear-gradient(
+    to bottom,
+    #2f0743,
+    #41295a
+  ); /* Chrome 10-25, Safari 5.1-6 */
+  background: linear-gradient(
+    to bottom,
+    #2f0743,
+    #41295a
+  ); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
   min-height: 100vh;
 }
 
 .result__questions {
   padding: 5px 15px;
+}
+
+.result__text {
+  color: var(--main-light);
+  font-size: 1rem;
+  padding-bottom: 10px;
 }
 
 .result_answer {

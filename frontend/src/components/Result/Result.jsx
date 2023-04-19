@@ -64,11 +64,12 @@ const Result = (props) => {
         const explanation = explanations[index];
         return (
           <div className="questions__content">
-            <div className="questions__text" key={question.id}>
-              <h4>
-                {index + 1}.{" "}
-                <div dangerouslySetInnerHTML={{ __html: question.text }} />
-              </h4>
+            <div className="result__text" key={question.id}>
+              <div
+                dangerouslySetInnerHTML={{
+                  __html: `${index + 1}. ${question.text} `,
+                }}
+              ></div>
             </div>
             <div>
               <ol className="list-group answers__list">
@@ -107,7 +108,7 @@ const Result = (props) => {
               </ol>
             </div>
             <div className="questions__text" key={`explanation${question.id}`}>
-              <h4>Explanation: {explanation}</h4>
+              <h5>Explanation: {explanation}</h5>
             </div>
           </div>
         );

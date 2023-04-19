@@ -13,9 +13,7 @@ const Question = ({ question, answers, onSelect, activeQuestion }) => {
         <h5>Question {activeQuestion + 1}</h5>
 
         <div className="questions__text" key={question.id}>
-          <h4>
-            <div dangerouslySetInnerHTML={{ __html: question.text }} />
-          </h4>
+          <div dangerouslySetInnerHTML={{ __html: question.text }} />
         </div>
       </div>
       <div>
