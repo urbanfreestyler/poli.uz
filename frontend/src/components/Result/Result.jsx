@@ -107,8 +107,12 @@ const Result = (props) => {
                     })}
               </ol>
             </div>
-            <div className="questions__text" key={`explanation${question.id}`}>
-              <h5>Explanation: {explanation}</h5>
+            <div
+              className="result__explanation"
+              key={`explanation${question.id}`}
+            >
+              Explanation:
+              <div dangerouslySetInnerHTML={{ __html: explanation }} />
             </div>
           </div>
         );

@@ -3,7 +3,7 @@
 }
 
 .answer {
-  font-weight: bold;
+  /* font-weight: bold; */
   font-size: 1rem;
   line-height: 1.5;
   margin-bottom: 10px;
@@ -14,6 +14,15 @@
 
   background-color: var(--main-light);
   color: var(--secondary-dark);
+}
+
+.answer div {
+  display: inline-block;
+  margin: 0;
+}
+
+.answer p {
+  margin-bottom: 0;
 }
 
 .answer:hover {

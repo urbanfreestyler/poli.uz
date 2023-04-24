@@ -37,6 +37,10 @@
   padding-bottom: 10px;
 }
 
+.result__text div p {
+  display: inline-block;
+}
+
 .result_answer {
   font-weight: bold;
   font-size: 1rem;
@@ -50,6 +54,28 @@
 
   background-color: var(--main-light);
   color: var(--main-dark);
+}
+
+.result_answer div {
+  display: inline-block;
+}
+
+.result_answer p {
+  margin-bottom: 0;
+}
+
+.result__explanation {
+  font-size: 1rem;
+  color: var(--main-light);
+  margin: 20px 0;
+}
+
+.result__explanation div {
+  /* display: inline-block; */
+}
+
+.result__explanation p {
+  margin-bottom: 0;
 }
 
 .correct {
