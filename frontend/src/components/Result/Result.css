@@ -6,6 +6,7 @@
 
   max-width: 920px;
   margin: auto;
+  padding-bottom: 25px;
 }
 
 .result__container h3 {
@@ -57,11 +58,14 @@
 }
 
 .result_answer div {
-  display: inline-block;
+  display: inline;
 }
 
-.result_answer p {
+.result_answer div p {
+  display: inline;
+  flex-wrap: wrap;
   margin-bottom: 0;
+  margin: 0 10px;
 }
 
 .result__explanation {
