@@ -4,7 +4,8 @@ const host_url = "https://api.poli.uz/";
 
 const fetchData = async (url) => {
   try {
-    const response = await axios.get(host_url + url);
+    // const response = await axios.get(host_url + url);
+    const response = await axios.get("http://127.0.0.1:8000/" + url);
     return response.data;
   } catch (err) {
     console.log(err);
